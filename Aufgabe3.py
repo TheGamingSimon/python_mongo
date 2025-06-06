@@ -13,14 +13,13 @@ def show_unique_boroughs():
         print(" -", borough)
 
 def show_top_3_restaurants_by_rating():
-    print("\n⭐ Top 3 Restaurants nach Durchschnitts-Score:")
+    print("\nTop 3 Restaurants nach Durchschnitts-Score:")
 
     pipeline = [
         {"$unwind": "$grades"},
         {"$group": {
             "_id": "$name",
-            "avg_score": {"$avg": "$grades.score"},
-            "address": {"$first": "$address"}
+            "avg_score": {"$avg": "$grades.score"}
         }},
         {"$sort": SON([("avg_score", -1)])},
         {"$limit": 3}
@@ -33,28 +32,46 @@ def show_top_3_restaurants_by_rating():
 def find_nearest_to_le_perigord():
     print("\nRestaurant am nächsten zu 'Le Perigord':")
 
+    # Stelle sicher, dass der Geo-Index existiert
+    collection.create_index([("address.coord", "2dsphere")])
+
     base_restaurant = collection.find_one({"name": "Le Perigord"})
-    if not base_restaurant or "address" not in base_restaurant or "coord" not in base_restaurant["address"]:
-        print("Fehler: 'Le Perigord' nicht gefunden oder ohne Koordinaten.")
+    if not base_restaurant:
+        print("Fehler: 'Le Perigord' wurde nicht gefunden.")
         return
 
-    coordinates = base_restaurant["address"]["coord"]
+    coord = base_restaurant.get("address", {}).get("coord")
+    if not coord or not isinstance(coord, list) or len(coord) != 2:
+        print("Fehler: 'Le Perigord' hat keine gültigen Koordinaten.")
+        return
 
-    nearest = collection.find_one({
-        "name": {"$ne": "Le Perigord"},
-        "address.coord": {
-            "$near": coordinates
-        }
-    })
+    geo_point = {
+        "type": "Point",
+        "coordinates": coord
+    }
 
-    if nearest:
-        print("Nächstgelegenes Restaurant:", nearest["name"])
-        print("Adresse:", nearest["address"].get("street", "Keine Angabe"))
-    else:
-        print("Kein nahes Restaurant gefunden.")
+    try:
+        nearest = collection.find_one({
+            "name": {"$ne": "Le Perigord"},
+            "address.coord": {
+                "$near": {
+                    "$geometry": geo_point
+                }
+            }
+        })
+
+        if nearest:
+            print("Nächstgelegenes Restaurant:", nearest["name"])
+            print("Adresse:", nearest["address"].get("street", "Keine Angabe"))
+        else:
+            print("Kein nahegelegenes Restaurant gefunden.")
+
+    except Exception as e:
+        print("Fehler bei Geo-Abfrage:", e)
+
 
 def search_restaurants():
-    print("\nRestaurantsuche")
+    print("\nRestaurantsuche:")
     name = input("Name enthält (optional): ").strip()
     cuisine = input("Küche enthält (optional): ").strip()
 
@@ -71,13 +88,11 @@ def search_restaurants():
     for r in results:
         found = True
         print(f"- {r.get('name')} | {r.get('cuisine')} | {r.get('borough')}")
-    
     if not found:
         print("Keine Restaurants gefunden.")
 
 if __name__ == "__main__":
     print("Restaurant Explorer (MongoDB)\n")
-
     show_unique_boroughs()
     show_top_3_restaurants_by_rating()
     find_nearest_to_le_perigord()
