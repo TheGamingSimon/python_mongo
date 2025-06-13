@@ -36,7 +36,13 @@ document_short_id = input("\nSelect Document: ")
 
 if document_short_id in id_map:
     full_id = id_map[document_short_id]
-    document_data = col.find_one({"_id": ObjectId(full_id)})
+    from bson.objectid import InvalidId
+
+    try:
+        document_data = col.find_one({"_id": ObjectId(full_id)})
+    except InvalidId:
+        document_data = col.find_one({"_id": full_id})
+
 
     print(f"\n{database}.{collection}.{full_id}\n")
     for key, value in document_data.items():

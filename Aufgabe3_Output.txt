@@ -1,0 +1,26 @@
+python .\Aufgabe3.py
+Restaurant Explorer (MongoDB)
+
+Stadtbezirke (ohne Duplikate):
+ - Bronx
+ - Brooklyn
+ - Manhattan
+ - Missing
+ - Queens
+ - Staten Island
+
+Top 3 Restaurants nach Durchschnitts-Score:
+Juice It Health Bar - Ø Score: 75.0
+Golden Dragon Cuisine - Ø Score: 73.0
+Chelsea'S Juice Factory - Ø Score: 69.0
+
+Restaurant am nächsten zu 'Le Perigord':
+Nächstgelegenes Restaurant: Subway
+Adresse: First Avenue
+
+Restaurantsuche:
+Name enthält (optional): Juice It Health
+Küche enthält (optional):
+
+Gefundene Restaurants:
+- Juice It Health Bar | Juice, Smoothies, Fruit Salads | Brooklyn

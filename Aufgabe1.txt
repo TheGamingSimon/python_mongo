@@ -1,0 +1,14 @@
+ODM steht für Object Document Mapper.
+
+Ein ODM ist ein Werkzeug, das hilft, Objekte in einer Programmiersprache (wie Python) mit Dokumenten in einer dokumentbasierten Datenbank wie MongoDB zu verknüpfen.
+
+Was macht ein ODM konkret?
+Ein ODM:
+
+Verwaltet die Übersetzung zwischen Python-Objekten und BSON-Dokumenten in MongoDB.
+
+Ermöglicht dir, Datenbank-Dokumente wie Python-Klassen zu behandeln.
+
+Validiert Daten automatisch, bevor sie gespeichert werden.
+
+Ermöglicht bequemere Abfragen und Aktualisierungen durch Methoden statt roher Queries.

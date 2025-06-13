@@ -1,0 +1,5 @@
+$env:MONGO_URI="mongodb+srv://TheGamingSimon:123ict@m165.sqskh.mongodb.net/?retryWrites=true&w=majority&appName=M165"
+
+python .\Aufgabe4.py
+Erfolgreich verbunden mit MongoDB
+MongoDB-Version: 8.0.9

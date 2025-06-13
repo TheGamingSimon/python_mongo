@@ -1,0 +1,8 @@
+python .\Aufgabe5.py
+Starte Power-Statistik-Logger (Drücke Strg+C zum Beenden)...
+[2025-06-13 10:52:12.844302] CPU: 18.0% | RAM used: 6.88 GB / 8.16 GB
+[2025-06-13 10:52:15.010766] CPU: 21.3% | RAM used: 6.86 GB / 8.16 GB
+[2025-06-13 10:52:17.033501] CPU: 0.6% | RAM used: 6.84 GB / 8.16 GB
+[2025-06-13 10:52:19.056510] CPU: 6.4% | RAM used: 6.84 GB / 8.16 GB
+
+Logger wurde beendet.

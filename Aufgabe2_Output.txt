@@ -1,0 +1,28 @@
+python .\Aufgabe2.py
+Databases
+ - admin
+ - config
+ - local
+ - restaurant
+ - restaurants
+Select Database: admin
+
+admin
+
+Collections
+ - system.version
+Select Collection: system.version
+
+admin.system.version
+
+Documents
+ - Version
+
+Select Document: Version
+
+admin.system.version.featureCompatibilityVersion
+
+_id: featureCompatibilityVersion
+version: 8.0
+
+Press any button to return
